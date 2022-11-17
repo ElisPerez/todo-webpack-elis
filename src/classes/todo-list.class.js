@@ -1,15 +1,20 @@
+import { Todo } from './todo.class';
+
 export class TodoList {
   constructor() {
-    this.todos = [];
+    // this.todos = [];
+    this.loadFromLocalStorage();
   }
 
   // methods
   newTodo(todo) {
     this.todos.push(todo);
+    this.saveToLocalStorage();
   }
 
   deleteTodo(id) {
     this.todos = this.todos.filter(todo => todo.id != id);
+    this.saveToLocalStorage();
   }
 
   toggleCompleted(id) {
@@ -18,6 +23,7 @@ export class TodoList {
       if (todo.id == id) {
         todo.completed = !todo.completed;
         // console.log({ completed: todo.completed });
+        this.saveToLocalStorage();
         break;
       }
     }
@@ -25,5 +31,26 @@ export class TodoList {
 
   deleteCompleted() {
     this.todos = this.todos.filter(todo => !todo.completed);
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage() {
+    // localStorage.setItem('todo', this.todos) // [Object Object]: Es la representación de un objeto al pasarlo a string
+    localStorage.setItem('To-Dos', JSON.stringify(this.todos));
+  }
+
+  loadFromLocalStorage() {
+    // if (localStorage.getItem('To-Dos')) {
+    //   this.todos = JSON.parse(localStorage.getItem('To-Dos'));
+    //   console.log('Todos:', this.todos);
+    // } else {
+    //   this.todos = [];
+    // }
+
+    this.todos = localStorage.getItem('To-Dos') ? JSON.parse(localStorage.getItem('To-Dos')) : [];
+
+    // this.todos = this.todos.map(obj => Todo.fromJson(obj));
+    this.todos = this.todos.map(Todo.fromJson);
+    console.log('ToDos:', this.todos);
   }
 }

@@ -6,9 +6,14 @@ import { createTodoHtml } from './js/components';
 
 export const todoList = new TodoList();
 
-const todo = new Todo('Learn Javascript!!');
+todoList.todos.forEach(createTodoHtml); // It's the same: forEach(todo => createTodoHtml(todo));
 
-todoList.newTodo(todo);
+console.log('To-Dos Elis:', todoList);
+
+// const todo = new Todo('Learn Javascript!!');
+
+// // todoList.newTodo(todo);
 // console.log(todoList);
 
-createTodoHtml(todo);
+// createTodoHtml(todo);
+
