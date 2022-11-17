@@ -42,3 +42,22 @@ txtInput.addEventListener('keyup', e => {
     txtInput.value = '';
   }
 });
+
+ulTodoList.addEventListener('click', e => {
+  // console.log('click:', e.target.localName);
+  const elementName = e.target.localName;
+  const todoElement = e.target.parentElement.parentElement;
+  const todoID = todoElement.getAttribute('data-id');
+
+  // console.log(todoElement);
+  // console.log('ID:', todoID);
+
+  if (elementName.includes('input')) {
+    // Click en el checkbox
+    todoList.toggleCompleted(todoID);
+  }
+
+  todoElement.classList.toggle('completed');
+
+  console.log(todoList);
+});
