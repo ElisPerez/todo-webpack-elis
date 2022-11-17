@@ -5,7 +5,7 @@ import './css/style.css';
 import { createTodoHtml } from './js/components';
 
 
-const todoList = new TodoList();
+export const todoList = new TodoList();
 
 const todo = new Todo('Learn Javascript!!');
 
