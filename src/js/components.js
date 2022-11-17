@@ -4,6 +4,7 @@ import { todoList } from '../index';
 // HTML References
 const ulTodoList = document.querySelector('.todo-list');
 const txtInput = document.querySelector('.new-todo');
+const btnDeleteAllCompleted = document.querySelector('.clear-completed');
 
 export const createTodoHtml = todo => {
   const htmlTodo = `
@@ -55,9 +56,27 @@ ulTodoList.addEventListener('click', e => {
   if (elementName.includes('input')) {
     // Click en el checkbox
     todoList.toggleCompleted(todoID);
+    todoElement.classList.toggle('completed');
+  } else if (elementName.includes('button')) {
+    // Delete todo.
+    todoList.deleteTodo(todoID);
+
+    ulTodoList.removeChild(todoElement);
   }
 
-  todoElement.classList.toggle('completed');
+  // console.log(todoList);
+});
 
-  console.log(todoList);
+btnDeleteAllCompleted.addEventListener('click', () => {
+  todoList.deleteCompleted(); // Borra del array
+
+  // Borrar en el HTML
+  for (let i = ulTodoList.children.length - 1; i >= 0; i--) {
+    const element = ulTodoList.children[i];
+
+    // console.log(element);
+    if (element.classList.contains('completed')) {
+      ulTodoList.removeChild(element);
+    }
+  }
 });
