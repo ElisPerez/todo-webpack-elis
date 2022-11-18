@@ -5,6 +5,8 @@ import { todoList } from '../index';
 const ulTodoList = document.querySelector('.todo-list');
 const txtInput = document.querySelector('.new-todo');
 const btnDeleteAllCompleted = document.querySelector('.clear-completed');
+const ulFilters = document.querySelector('.filters');
+const anchorFilters = document.querySelectorAll('.filtro');
 
 export const createTodoHtml = todo => {
   const htmlTodo = `
@@ -77,6 +79,37 @@ btnDeleteAllCompleted.addEventListener('click', () => {
     // console.log(element);
     if (element.classList.contains('completed')) {
       ulTodoList.removeChild(element);
+    }
+  }
+});
+
+ulFilters.addEventListener('click', e => {
+  // console.log(e.target.text);
+  const filter = e.target.text;
+  if (!filter) return;
+
+  anchorFilters.forEach(element => element.classList.remove('selected'));
+  // console.log(e.target); // anchor tag like this: <a class="filtro" href="#/">All</a>
+  e.target.classList.add('selected'); // Se agrega la class selected al anchor tag que ha sido clicked.
+
+  for (const element of ulTodoList.children) {
+    // console.log(element);
+    element.classList.remove('hidden');
+
+    const completed = element.classList.contains('completed');
+
+    switch (filter) {
+      case 'Active':
+        if (completed) {
+          element.classList.add('hidden');
+        }
+        break;
+
+      case 'Completed':
+        if (!completed) {
+          element.classList.add('hidden');
+        }
+        break;
     }
   }
 });
