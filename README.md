@@ -1,6 +1,6 @@
-# Webpack Starter
+# To-Do List with Webpack
 
-Webpack Template
+This is a To-Do app with Webpack
 
 ## Elis Antonio Perez
 
